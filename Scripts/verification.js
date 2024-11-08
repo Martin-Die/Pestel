@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('porterForm');
+    const form = document.getElementById('pestelForm');
     const submitButton = form.querySelector('button[type="button"]');
 
     submitButton.addEventListener('click', function(event) {
