@@ -1,23 +1,33 @@
 async function sendToGPT() {
-    const pestelCategories = [
-        { name: "Politique", q1: document.getElementById('politiqueQ1')?.value || '', q2: document.getElementById('politiqueQ2')?.value || '' },
-        { name: "Économique", q1: document.getElementById('economiqueQ1')?.value || '', q2: document.getElementById('economiqueQ2')?.value || '' },
-        { name: "Socioculturel", q1: document.getElementById('socioculturalQ1')?.value || '', q2: document.getElementById('socioculturalQ2')?.value || '' },
-        { name: "Technologique", q1: document.getElementById('technologiqueQ1')?.value || '', q2: document.getElementById('technologiqueQ2')?.value || '' },
-        { name: "Écologique", q1: document.getElementById('ecologiqueQ1')?.value || '', q2: document.getElementById('ecologiqueQ2')?.value || '' },
-        { name: "Légal", q1: document.getElementById('legalQ1')?.value || '', q2: document.getElementById('legalQ2')?.value || '' }
-    ];
-
+    const form = document.getElementById('pestelForm');
+    const pestelCategories = [];
     const responses = [];
     const syntheses = [];
 
     const piKe = 'Y3lUMnBLNlhpbS1CdFA3WkJkYWptT3UyUWdodGczNjZfdnNxY3VEMU0xeHBPcGNtR3JtM3RmdFE4aE9zMVFfS1A0MGZUM0JsYmtGSnpiV0drN3lyeFJpckRpdjhwaWF6aFdMaFYyNXltZklxSkNjNmVsVnVlRXZYaGdPTl9FaGtVVHZFdTdwR0RYM3lMV09ncFRxU0lBUzRqdTRqLWpvcnAta3M=';
-    function sirg(str) {return str.split('').reverse().join('');}
-    function decoB(encoded) {return atob(encoded);}
-    function gepi() {let deco = decoB(piKe);let sar = deco.slice(-14);let bude = deco.slice(0, -14);sar = sirg(sar);return sar + bude;}
+    function sirg(str) { return str.split('').reverse().join(''); }
+    function decoB(encoded) { return atob(encoded); }
+    function gepi() { let deco = decoB(piKe); let sar = deco.slice(-14); let bude = deco.slice(0, -14); sar = sirg(sar); return sar + bude; }
     const pi = gepi();
 
+    // Parcourir chaque h3 et textarea pour récupérer les données
+    let currentCategory = null;
+
+    Array.from(form.children).forEach(child => {
+        if (child.tagName === 'H3') {
+            // Nouvelle catégorie
+            if (currentCategory) pestelCategories.push(currentCategory); // Sauvegarder la précédente
+            currentCategory = { name: child.textContent, questions: [] };
+        } else if (child.tagName === 'TEXTAREA') {
+            // Ajouter la réponse du textarea
+            currentCategory.questions.push(child.value || '');
+        }
+    });
+    if (currentCategory) pestelCategories.push(currentCategory); // Sauvegarder la dernière catégorie
+
+    // Envoyer chaque catégorie à GPT
     for (const category of pestelCategories) {
+        console.log(category);
         const prompt = `Analyse de la catégorie "${category.name}" de l'analyse PESTEL :
         Question 1 : ${category.q1}
         Question 2 : ${category.q2}
@@ -45,7 +55,7 @@ async function sendToGPT() {
             responses.push({ category: category.name, analysis: data.choices[0].message.content });
 
             // Demande de synthèse
-            const synthesePrompt = `Fournissez une synthèse extrêmement concise (maximum 10 mots) pour la catégorie "${category.name}" de l'analyse PESTEL. Cette synthèse doit capturer l'essence de la catégorie et être facilement intégrable dans un schéma visuel.`;
+            const synthesePrompt = `Fournissez une synthèse concise (maximum 60 mots) pour la catégorie "${category.name}" de l'analyse PESTEL. Cette synthèse doit capturer l'essence de la catégorie et être facilement intégrable dans un schéma visuel.`;
 
             const syntheseResponse = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
@@ -75,7 +85,7 @@ async function sendToGPT() {
 
     // Sauvegarder les synthèses dans le localStorage
     localStorage.setItem('syntheses', JSON.stringify(syntheses));
-    
+
     // Générer le PDF
     makePDF();
 }

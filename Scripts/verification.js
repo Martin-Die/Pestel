@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('pestelForm');
-    const submitButton = form.querySelector('button[type="button"]');
+    const submitButton = document.querySelector('#pestelButton button');
 
     submitButton.addEventListener('click', function(event) {
         event.preventDefault();
@@ -24,9 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (isValid) {
             startLoad();
-            sendToGPT();
-            // makePDF();
-            // Test();
+            // sendToGPT();
+            makePDF();
         } else if (firstInvalidField) {
             firstInvalidField.focus();
         }

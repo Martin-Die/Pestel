@@ -1,0 +1,46 @@
+{
+    "categories": [
+        {
+            "name": "Politique",
+            "questions": [
+                "Quelles sont les principales politiques gouvernementales qui affectent votre secteur ?",
+                "Comment la stabilité politique du pays influence-t-elle votre activité ?"
+            ]
+        },
+        {
+            "name": "Économique",
+            "questions": [
+                "Quelles sont les tendances économiques actuelles qui impactent votre marché ?",
+                "Comment les taux d'intérêt et l'inflation affectent-ils votre entreprise ?"
+            ]
+        },
+        {
+            "name": "Socioculturel",
+            "questions": [
+                "Quelles sont les principales tendances socioculturelles qui influencent votre secteur ?",
+                "Comment les changements démographiques affectent-ils votre marché cible ?"
+            ]
+        },
+        {
+            "name": "Technologique",
+            "questions": [
+                "Quelles sont les principales innovations technologiques dans votre secteur ?",
+                "Comment l'automatisation et la digitalisation impactent-elles votre activité ?"
+            ]
+        },
+        {
+            "name": "Écologique",
+            "questions": [
+                "Quelles sont les principales préoccupations environnementales dans votre secteur ?",
+                "Comment les réglementations environnementales affectent-elles votre entreprise ?"
+            ]
+        },
+        {
+            "name": "Légal",
+            "questions": [
+                "Quelles sont les principales lois et réglementations qui régissent votre secteur ?",
+                "Comment les changements législatifs récents ou à venir impactent-ils votre activité ?"
+            ]
+        }
+    ]
+}

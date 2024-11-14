@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire PESTEL</title>
+    <link rel="stylesheet" href="./pestel.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Réaliser mon PESTEL</h2>
+        <h6>Identifier l'environnement dans lequel mon projet va évoluer</h6>
+        <form id="pestelForm"></form>
+        <div id="pestelButton"><button type="button">Envoyer les réponses</button></div>
+    </div>
+
+    <script>
+        async function loadQuestions() {
+            const response = await fetch('../pestel.json');
+            const data = await response.json();
+            const form = document.getElementById('pestelForm');
+
+            data.categories.forEach((category, catIndex) => {
+                // Create category heading
+                const categoryHeading = document.createElement('h3');
+                categoryHeading.textContent = category.name;
+                form.appendChild(categoryHeading);
+
+                // Create questions
+                category.questions.forEach((question, qIndex) => {
+                    const label = document.createElement('label');
+                    label.setAttribute('for', `${category.name.toLowerCase()}Q${qIndex + 1}`);
+                    label.textContent = `${catIndex * 2 + qIndex + 1}. ${question}`;
+
+                    const textarea = document.createElement('textarea');
+                    textarea.id = `${category.name.toLowerCase()}Q${qIndex + 1}`;
+                    textarea.placeholder = "Votre réponse";
+
+                    form.appendChild(label);
+                    form.appendChild(textarea);
+                });
+            });
+        }
+
+        // Load questions on page load
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
+    <script src="./scriptLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+
+</html>

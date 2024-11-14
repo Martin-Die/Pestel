@@ -11,8 +11,8 @@ const interligne = 0.3;
 
 // Couleurs pour chaque colonne PESTEL
 const columnColors = [
-  "#f04424", "#ff5c54", "#f88c24", 
-  "#f8bc04", "#f8d404", "#b8e986"
+  "#ff4c5c", "#ff949c", "#f0b484", 
+  "#f8cc8c", "#ffec7c", "#d0dc74"
 ];
 
 function makePDF() {

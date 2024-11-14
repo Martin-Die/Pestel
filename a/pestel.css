@@ -57,12 +57,13 @@ label {
 }
 
 textarea {
-    width: 100%;
+    width: 50%;
+    min-width: 50%;
     padding: 15px;
     border: 2px solid var(--border-color);
     border-radius: 8px;
     font-size: 1em;
-    resize: vertical;
+    /* resize: vertical; */
     min-height: 120px;
 }
 
