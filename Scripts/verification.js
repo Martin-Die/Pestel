@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (isValid) {
             startLoad();
-            // sendToGPT();
-            makePDF();
+            sendToGPT();
+            // makePDF();
         } else if (firstInvalidField) {
             firstInvalidField.focus();
         }

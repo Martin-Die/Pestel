@@ -41,6 +41,9 @@
 
                     form.appendChild(label);
                     form.appendChild(textarea);
+
+                    // Add the data-question attribute with the question text
+                    textarea.setAttribute('data-question', question);
                 });
             });
         }
