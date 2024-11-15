@@ -2,11 +2,7 @@ async function sendToGPT() {
     const form = document.getElementById('pestelForm');
     const pestelCategories = [];
 
-    const piK = 'Y3lUMnBLNlhpbS1CdFA3WkJkYWptT3UyUWdodGczNjZfdnNxY3VEMU0xeHBPcGNtR3JtM3RmdFE4aE9zMVFfS1A0MGZUM0JsYmtGSnpiV0drN3lyeFJpckRpdjhwaWF6aFdMaFYyNXltZklxSkNjNmVsVnVlRXZYaGdPTl9FaGtVVHZFdTdwR0RYM3lMV09ncFRxU0lBUzRqdTRqLWpvcnAta3M=';
-    function sirg(str) { return str.split('').reverse().join(''); }
-    function decoB(encoded) { return atob(encoded); }
-    function gepi() { let deco = decoB(piK); let sar = deco.slice(-14); let bude = deco.slice(0, -14); sar = sirg(sar); return sar + bude; }
-    const pi = gepi();
+    const API_KEY = process.env.API_KEY || require('./config').API_KEY;
 
     // Parcourir chaque h3 et textarea pour récupérer les données
     let currentCategory = null;
@@ -43,7 +39,7 @@ async function sendToGPT() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${pi}`
+                'Authorization': `Bearer ${API_KEY}`
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',

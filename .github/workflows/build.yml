@@ -1,0 +1,48 @@
+name: PESTEL Analysis Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Permet le déclenchement manuel
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Vous pouvez ajuster la version de Node.js selon vos besoins
+
+    - name: Install dependencies
+      run: |
+        npm ci  # Utilise package-lock.json pour une installation cohérente
+        # Si vous n'avez pas de package.json, utilisez simplement 'npm install'
+
+    - name: Create config file with API key
+      env:
+        API_KEY: ${{ secrets.API_KEY }}  # Assurez-vous d'avoir configuré ce secret dans les paramètres de votre dépôt GitHub
+      run: |
+        echo "const API_KEY = '$API_KEY';" > config.js
+        echo "module.exports = { API_KEY };" >> config.js
+
+    - name: Run PESTEL analysis script
+      run: node pestel-analysis.js  # Assurez-vous que ce fichier existe et contient votre logique d'analyse PESTEL
+
+    - name: Generate PDF
+      run: node generate-pdf.js  # Créez ce script pour générer le PDF à partir des résultats de l'analyse
+
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: pestel-analysis-report
+        path: pestel-report.pdf  # Assurez-vous que c'est le bon chemin vers votre PDF généré
+
+    # Vous pouvez ajouter d'autres étapes ici, comme le déploiement du PDF sur un site web, 
+    # l'envoi par email, ou toute autre action post-analyse
