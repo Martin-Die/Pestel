@@ -2,7 +2,7 @@ async function sendToGPT() {
     const form = document.getElementById('pestelForm');
     const pestelCategories = [];
 
-    const API_KEY = process.env.API_KEY || require('./config').API_KEY;
+    const API_KEY = process.env.API_KEY;
 
     // Parcourir chaque h3 et textarea pour récupérer les données
     let currentCategory = null;
