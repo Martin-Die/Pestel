@@ -19,7 +19,7 @@
 
     <script>
         async function loadQuestions() {
-            const response = await fetch('../pestel.json');
+            const response = await fetch('./pestel.json');
             const data = await response.json();
             const form = document.getElementById('pestelForm');
 
